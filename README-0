@@ -1,0 +1,52 @@
+必要步骤
+install -g webpack
+npm init
+### install --save-dev webpack
+(可能需要全局安装webpack-cli)
+ 
+ install babel/vue
+ 
+ npm install -g babel-cli
+ cnpm install babel-cli --save-dev
+ npm install --save babel-preset-es2015
+ 
+ install babel-loader
+ npm install --save-dev babel-loader babel-core
+
+
+webback
+Error: Couldn't find preset "stage-0" relative to directory
+去掉webpack.config.js中babel-loader配置
+
+成功后生成dist/build.js
+
+
+
+
+
+使用webpack构建本地服务器
+
+浏览器监听你的代码的修改，并自动刷新显示修改后的结果，其实Webpack提供一个可选的本地开发服务器，
+这个本地服务器基于node.js构建，可以实现你想要的这些功能，不过它是一个单独的组件，在webpack中进行配置之前需要单独安装它作为项目依赖
+
+### npm install --save-dev webpack-dev-server
+
+devServer: {
+    contentBase: "./public",//本地服务器所加载的页面所在的目录
+    historyApiFallback: true,//不跳转
+    inline: true//实时刷新
+}
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "server": "webpack-dev-server --open"
+}
+
+### npm run server
+即可在本地的8080端口查看结果
+
+
+链接：https://segmentfault.com/a/1190000006178770
+
+
