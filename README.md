@@ -51,9 +51,17 @@ module.exports = {
 }
 // cheap-module-eval-source-map方法构建速度更快，但是不利于调试，推荐在大型项目考虑时间成本时使用。
 
-扩展
-依赖包编排，支持动态构建（类似maven）
+### vue-router基本用法
+单页应用
+https://www.cnblogs.com/SamWeb/p/6610733.html
 
+
+# install dependencies
+npm install
+
+
+扩展
+// 依赖包编排，支持动态构建（类似maven）  [npm install]
 
 
 
