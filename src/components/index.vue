@@ -1,52 +1,65 @@
 <template>
-  <div id="index">
-    <h1>{{ msg }}</h1>
-    <img src="../img/logo.png">
-    <input type="text" v-model="msg">
+    <div id="index">
+        <h1>{{ msg }}</h1>
+        <img src="../img/logo.png">
+        <input type="text" v-model="msg">
 
-    <h3>导航</h3>
-    <header>
-        <!-- router-link 定义点击后导航到哪个路径下 -->
-        <router-link to="/first">First</router-link>
-        <router-link to="/second">Second</router-link>
-        <router-link to="/json">Jsonp</router-link>
-    </header>
+        <h3>导航</h3>
+        <header>
+            <!-- router-link 定义点击后导航到哪个路径下 -->
+            <router-link to="/first">First</router-link>
+            <router-link to="/second">Second</router-link>
+            <router-link to="/json">Jsonp</router-link>
+        </header>
 
-    <!-- 对应的组件内容渲染到router-view中 -->
-    <!--<router-view></router-view>-->
+        <!-- 对应的组件内容渲染到router-view中 -->
+        <!--<router-view></router-view>-->
 
-  </div>
+    </div>
 </template>
 
 <script>
 
-import getData from '../js/util';
+    import getData from '../js/util';
 
-export default {
-  name: 'index',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js'
+    export default {
+        name: 'index',
+        data() {
+            return {
+                msg: 'Welcome to Your Vue.js'
+            }
+        },
+        created() {
+            this.fetchData();
+        },
+        methods: {
+            async fetchData() {
+                const data = await getData();
+                this.msg = data;
+
+                this.$http.get('../../test.xml').then(function (res) {
+                    // console.log("res: " + JSON.stringify(res))
+                    let jsonObj = this.$x2js.xml2js(res.body)
+                    console.log("jsonObj: " + JSON.stringify(jsonObj))
+                    let arr = jsonObj.bookstore.book;
+                    for (var i = 0; i < arr.length; i++) {
+                        console.log(arr[i].author + " ----------- " + arr[i].year)
+                    }
+
+                }).catch(function (err) {
+                    console.log("---------- err: " + err);
+                });
+            }
+        }
     }
-  },
-  created() {
-    this.fetchData();
-  },
-  methods: {
-     async fetchData() {
-      const data = await getData();
-      this.msg = data;
-    }
-  }
-}
 </script>
 
 <style lang="scss">
-#index {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+    #index {
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
 
-  h1 {
-    color: green;
-  }
-}
+        h1 {
+            color: green;
+        }
+    }
 </style>
